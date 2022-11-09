@@ -12,7 +12,7 @@ prog : (expression NEWLINE)+;
 // Requirements for variable names
 variable : VARNAME ;
 
-// Expressions such as arithmatic, assignments, etc
+// Expressions such as arithmetic, assignments, etc
 expression : (assignment);
 
 // Assignments
@@ -31,7 +31,7 @@ fragment LOWER  : [a-z] ;
 fragment UPPER  : [A-Z] ;
 fragment DIGIT  : [0-9] ;
 
-NUMBER          : DIGIT+ ;
+NUMBER          : [-]?DIGIT+ ;
 
 // Rules for variable naming
 LETTER          : (LOWER | UPPER | '_') ;
