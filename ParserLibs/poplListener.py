@@ -35,6 +35,60 @@ class poplListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by poplParser#arithmetic.
+    def enterArithmetic(self, ctx:poplParser.ArithmeticContext):
+        pass
+
+    # Exit a parse tree produced by poplParser#arithmetic.
+    def exitArithmetic(self, ctx:poplParser.ArithmeticContext):
+        pass
+
+
+    # Enter a parse tree produced by poplParser#plus.
+    def enterPlus(self, ctx:poplParser.PlusContext):
+        pass
+
+    # Exit a parse tree produced by poplParser#plus.
+    def exitPlus(self, ctx:poplParser.PlusContext):
+        pass
+
+
+    # Enter a parse tree produced by poplParser#minus.
+    def enterMinus(self, ctx:poplParser.MinusContext):
+        pass
+
+    # Exit a parse tree produced by poplParser#minus.
+    def exitMinus(self, ctx:poplParser.MinusContext):
+        pass
+
+
+    # Enter a parse tree produced by poplParser#mult.
+    def enterMult(self, ctx:poplParser.MultContext):
+        pass
+
+    # Exit a parse tree produced by poplParser#mult.
+    def exitMult(self, ctx:poplParser.MultContext):
+        pass
+
+
+    # Enter a parse tree produced by poplParser#div.
+    def enterDiv(self, ctx:poplParser.DivContext):
+        pass
+
+    # Exit a parse tree produced by poplParser#div.
+    def exitDiv(self, ctx:poplParser.DivContext):
+        pass
+
+
+    # Enter a parse tree produced by poplParser#mod.
+    def enterMod(self, ctx:poplParser.ModContext):
+        pass
+
+    # Exit a parse tree produced by poplParser#mod.
+    def exitMod(self, ctx:poplParser.ModContext):
+        pass
+
+
     # Enter a parse tree produced by poplParser#assignment.
     def enterAssignment(self, ctx:poplParser.AssignmentContext):
         pass

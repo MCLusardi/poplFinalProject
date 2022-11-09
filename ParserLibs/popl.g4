@@ -7,16 +7,24 @@ grammar popl;
  */
 
 // program entry point
-prog : (expression NEWLINE)+;
+prog : (expression NEWLINE)+ ;
 
 // Requirements for variable names
 variable : VARNAME ;
 
 // Expressions such as arithmetic, assignments, etc
-expression : (assignment);
+expression : (assignment | arithmetic) ;
+
+// Arithmetic operators
+arithmetic : (plus | minus | mult | div | mod) ;
+plus : (variable | NUMBER) WHITESPACE* '+' WHITESPACE* (variable | NUMBER) ;
+minus : (variable | NUMBER) WHITESPACE* '-' WHITESPACE* (variable | NUMBER) ;
+mult : (variable | NUMBER) WHITESPACE* '*' WHITESPACE* (variable | NUMBER) ;
+div : (variable | NUMBER) WHITESPACE* '/' WHITESPACE* (variable | NUMBER) ;
+mod : (variable | NUMBER) WHITESPACE* '%' WHITESPACE* (variable | NUMBER) ;
 
 // Assignments
-assignment : (equals | pluseq | minuseq | multeq | diveq);
+assignment : (equals | pluseq | minuseq | multeq | diveq) ;
 equals  : variable WHITESPACE* '=' WHITESPACE* (variable | NUMBER) ;
 pluseq  : variable WHITESPACE* '+=' WHITESPACE* (variable | NUMBER) ;
 minuseq : variable WHITESPACE* '-=' WHITESPACE* (variable | NUMBER) ;
