@@ -17,8 +17,8 @@ rm -rf ParserLibs
 rm parser*.py
 
 # generate parser program (do this before the libraries so we don't have to cd twice)
-gammarName=$(basename $1 .g4)
-sed "s/\[grammarName\]/$gammarName/g" template.py > parser$gammarName.py
+grammarName=$(basename $1 .g4)
+sed "s/\[grammarName\]/$grammarName/g" template.py > parser$grammarName.py
 
 # setup parser environment 
 mkdir ParserLibs
