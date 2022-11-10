@@ -7,7 +7,7 @@ grammar popl;
  */
 
 // program entry point
-prog : (expression NEWLINE)+ ;
+prog : (expression NEWLINE)+;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -20,7 +20,7 @@ arithmetic : (variable | NUMBER) (WHITESPACE* arithmeticOp WHITESPACE* (variable
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 
 // Assignments
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (variable | NUMBER) ;
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (variable | NUMBER | arithmetic) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 /*
