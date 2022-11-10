@@ -16,7 +16,7 @@ variable : VARNAME ;
 expression : (assignment | arithmetic) ;
 
 // Arithmetic Operators
-arithmetic : (variable | NUMBER) WHITESPACE* arithmeticOp WHITESPACE* (variable | NUMBER) ;
+arithmetic : (variable | NUMBER) (WHITESPACE* arithmeticOp WHITESPACE* (variable | NUMBER))+ ;
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 
 // Assignments
