@@ -7,21 +7,23 @@ grammar popl;
  */
 
 // program entry point
-prog : (expression (NEWLINE+ | EOF))+ EOF;
+prog : (expression (NEWLINE+ | EOF))+ EOF ;
 
 // Requirements for variable names
 variable : VARNAME ;
 
 // Expressions such as arithmetic, assignments, etc
-expression : (assignment | arithmetic) ;
+expression : (assignment | unaryMinus | arithmetic) ;
 
 // Arithmetic Operators
-arithmetic : (variable | NUMBER) (WHITESPACE* arithmeticOp WHITESPACE* (variable | NUMBER))+ ;
+arithmetic : (unaryMinus | variable | NUMBER) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | variable | NUMBER))+ ;
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 
 // Assignments
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (variable | NUMBER | arithmetic) ;
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
+
+unaryMinus : MINUS (NUMBER | variable ) ;
 
 /*
  *  Lexer rules
@@ -31,7 +33,8 @@ fragment LOWER  : [a-z] ;
 fragment UPPER  : [A-Z] ;
 fragment DIGIT  : [0-9] ;
 
-NUMBER          : [-]?DIGIT+ ;
+NUMBER          : DIGIT+ ;
+MINUS           : '-' ;
 
 // Rules for variable naming
 LETTER          : (LOWER | UPPER | '_') ;
