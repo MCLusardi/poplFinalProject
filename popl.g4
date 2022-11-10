@@ -7,7 +7,7 @@ grammar popl;
  */
 
 // program entry point
-prog : (expression NEWLINE)+ ;
+prog : (expression (NEWLINE+ | EOF))+ EOF;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -16,20 +16,12 @@ variable : VARNAME ;
 expression : (assignment | arithmetic) ;
 
 // Arithmetic Operators
-arithmetic : (plus | minus | mult | div | mod) ;
-plus : (variable | NUMBER) WHITESPACE* '+' WHITESPACE* (variable | NUMBER) ;
-minus : (variable | NUMBER) WHITESPACE* '-' WHITESPACE* (variable | NUMBER) ;
-mult : (variable | NUMBER) WHITESPACE* '*' WHITESPACE* (variable | NUMBER) ;
-div : (variable | NUMBER) WHITESPACE* '/' WHITESPACE* (variable | NUMBER) ;
-mod : (variable | NUMBER) WHITESPACE* '%' WHITESPACE* (variable | NUMBER) ;
+arithmetic : (variable | NUMBER) (WHITESPACE* arithmeticOp WHITESPACE* (variable | NUMBER))+ ;
+arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 
 // Assignments
-assignment : (equals | pluseq | minuseq | multeq | diveq) ;
-equals  : variable WHITESPACE* '=' WHITESPACE* (variable | NUMBER) ;
-pluseq  : variable WHITESPACE* '+=' WHITESPACE* (variable | NUMBER) ;
-minuseq : variable WHITESPACE* '-=' WHITESPACE* (variable | NUMBER) ;
-multeq  : variable WHITESPACE* '*=' WHITESPACE* (variable | NUMBER) ;
-diveq   : variable WHITESPACE* '/=' WHITESPACE* (variable | NUMBER) ;
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (variable | NUMBER | arithmetic) ;
+assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 /*
  *  Lexer rules
