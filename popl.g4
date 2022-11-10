@@ -7,7 +7,7 @@ grammar popl;
  */
 
 // program entry point
-prog : (expression NEWLINE)+;
+prog : (expression (NEWLINE+ | EOF))+ EOF;
 
 // Requirements for variable names
 variable : VARNAME ;
