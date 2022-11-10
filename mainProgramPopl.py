@@ -12,6 +12,7 @@ def main(argv):
     lexer = poplLexer(input)
     tokens = CommonTokenStream(lexer)
     parser = poplParser(tokens)
+    print(parser)
     tree = parser.prog()
     print(tree.toStringTree(recog=parser))
 
