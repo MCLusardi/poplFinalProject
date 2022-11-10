@@ -1,7 +1,8 @@
+# this generates a parse tree from grammar [grammarName].g4
 import sys
 from antlr4 import *
-from parserlibs.TestLexer import TestLexer
-from parserlibs.TestParser import TestParser
+from ParserLibs.[grammarName]Lexer import [grammarName]Lexer
+from ParserLibs.[grammarName]Parser import [grammarName]Parser
 
 def main(argv):
     if len(sys.argv) > 1:
@@ -9,9 +10,9 @@ def main(argv):
     else:
         input = InputStream(sys.stdin.readline())
 
-    lexer = TestLexer(input)
+    lexer = [grammarName]Lexer(input)
     tokens = CommonTokenStream(lexer)
-    parser = TestParser(tokens)
+    parser = [grammarName]Parser(tokens)
     tree = parser.prog()
     print(tree.toStringTree(recog=parser))
 
