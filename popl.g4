@@ -20,7 +20,7 @@ arithmetic : (unaryMinus | variable | NUMBER) (WHITESPACE* arithmeticOp WHITESPA
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 
 // Assignments
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic) ;
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | STRING) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 unaryMinus : MINUS (NUMBER | variable ) ;
@@ -35,6 +35,7 @@ fragment DIGIT  : [0-9] ;
 
 NUMBER          : DIGIT+ ;
 MINUS           : '-' ;
+STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' ;
 
 // Rules for variable naming
 LETTER          : (LOWER | UPPER | '_') ;
