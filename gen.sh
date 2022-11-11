@@ -28,3 +28,5 @@ cd ParserLibs
 
 # have antlr generate the parser
 java -jar $ANTLR -Dlanguage=Python3 $1
+
+echo "Call \"python3 parser$grammarName.py [python file]\" to use the generated parser"
