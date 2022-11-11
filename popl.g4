@@ -20,11 +20,7 @@ arithmetic : (unaryMinus | variable | NUMBER | DECIMAL) (WHITESPACE* arithmeticO
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 
 // Assignments
-<<<<<<< HEAD
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | DECIMAL) ;
-=======
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | STRING) ;
->>>>>>> e2da432752e219c88268bc4b7823c391fe23b079
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | DECIMAL | STRING) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 unaryMinus : MINUS (NUMBER | variable ) ;
