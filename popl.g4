@@ -16,15 +16,11 @@ variable : VARNAME ;
 expression : (assignment | unaryMinus | arithmetic) ;
 
 // Arithmetic Operators
-arithmetic : (unaryMinus | variable | NUMBER | DECIMAL) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | variable | NUMBER | DECIMAL))+ ;
+arithmetic : (unaryMinus | variable | NUMBER | DECIMAL | HEX | BOOL) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | variable | NUMBER | DECIMAL | HEX | BOOL))+ ;
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 
 // Assignments
-<<<<<<< HEAD
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | DECIMAL) ;
-=======
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | STRING) ;
->>>>>>> e2da432752e219c88268bc4b7823c391fe23b079
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | DECIMAL | STRING | HEX | BOOL) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 unaryMinus : MINUS (NUMBER | variable ) ;
@@ -36,11 +32,16 @@ unaryMinus : MINUS (NUMBER | variable ) ;
 fragment LOWER  : [a-z] ;
 fragment UPPER  : [A-Z] ;
 fragment DIGIT  : [0-9] ;
+fragment LOWERHEX : [a-f] ;
+fragment UPPERHEX : [A-F] ;
+
 
 NUMBER          : DIGIT+ ;
 MINUS           : '-' ;
 DECIMAL         : NUMBER '.' NUMBER ;
-STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' ;
+HEX             : '0' 'x' (LOWERHEX | UPPERHEX | DIGIT)+ ;
+STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' | '\'' (LETTER | WHITESPACE | NUMBER)* '\''; 
+BOOL            : 'True' | 'False' ;
 
 // Rules for variable naming
 LETTER          : (LOWER | UPPER | '_') ;

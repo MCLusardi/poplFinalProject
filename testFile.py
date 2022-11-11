@@ -15,3 +15,9 @@ test_1=2
 
 test = 3+1*4/12
 test = var
+
+test = "hi"
+test = 'hi'
+
+test = 0x10
+test = 0xa1f
