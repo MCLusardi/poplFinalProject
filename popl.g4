@@ -21,7 +21,7 @@ arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 concatenation   : STRING (WHITESPACE* '+' WHITESPACE*) STRING ;
 
 // Assignments
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | DECIMAL | STRING | HEX | BOOL) ;
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (concatenation | unaryMinus | variable | NUMBER | arithmetic | DECIMAL | STRING | HEX | BOOL) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 unaryMinus : MINUS (NUMBER | variable ) ;
