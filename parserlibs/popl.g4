@@ -2,22 +2,44 @@ grammar popl;
 
 // Source: https://tomassetti.me/antlr-mega-tutorial/
 
-//Parser rules
+/*
+ *  Parser rules
+ */
 
-variable : FIRSTLETTER LETTER* ;
+// program entry point
+prog : (expression (NEWLINE+ | EOF))+ EOF ;
 
-equals  : variable '='  (variable | NUMBER) ;
-pluseq  : variable '+=' (variable | NUMBER) ;
-minuseq : variable '-=' (variable | NUMBER) ;
-multeq  : variable '*=' (variable | NUMBER) ;
-diveq   : variable '/=' (variable | NUMBER) ;
+// Requirements for variable names
+variable : VARNAME ;
 
-//Lexer rules
+// Expressions such as arithmetic, assignments, etc
+expression : (assignment | unaryMinus | arithmetic) ;
+
+// Arithmetic Operators
+arithmetic : (unaryMinus | variable | NUMBER | DECIMAL) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | variable | NUMBER | DECIMAL))+ ;
+arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
+
+// Assignments
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | DECIMAL) ;
+assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
+
+unaryMinus : MINUS (NUMBER | variable ) ;
+
+/*
+ *  Lexer rules
+ */
 
 fragment LOWER  : [a-z] ;
 fragment UPPER  : [A-Z] ;
 fragment DIGIT  : [0-9] ;
 
-FIRSTLETTER     : (LOWER | UPPER | '_') ;
-LETTER          : (FIRSTLETTER | DIGIT) ;
 NUMBER          : DIGIT+ ;
+MINUS           : '-' ;
+DECIMAL         : NUMBER '.' NUMBER ;
+
+// Rules for variable naming
+LETTER          : (LOWER | UPPER | '_') ;
+VARNAME         : LETTER (LETTER | DIGIT)* ;
+
+NEWLINE         : [\r\n]+ ;
+WHITESPACE      : [ ]+ ;

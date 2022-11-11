@@ -16,11 +16,11 @@ variable : VARNAME ;
 expression : (assignment | unaryMinus | arithmetic) ;
 
 // Arithmetic Operators
-arithmetic : (unaryMinus | variable | NUMBER) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | variable | NUMBER))+ ;
+arithmetic : (unaryMinus | variable | NUMBER | DECIMAL) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | variable | NUMBER | DECIMAL))+ ;
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 
 // Assignments
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic) ;
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | DECIMAL) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 unaryMinus : MINUS (NUMBER | variable ) ;
@@ -35,6 +35,7 @@ fragment DIGIT  : [0-9] ;
 
 NUMBER          : DIGIT+ ;
 MINUS           : '-' ;
+DECIMAL         : NUMBER '.' NUMBER ;
 
 // Rules for variable naming
 LETTER          : (LOWER | UPPER | '_') ;
