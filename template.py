@@ -1,4 +1,3 @@
-# this generates a parse tree from grammar [grammarName].g4
 import sys
 from antlr4 import *
 from ParserLibs.[grammarName]Lexer import [grammarName]Lexer
@@ -18,4 +17,3 @@ def main(argv):
 
 if __name__ == '__main__':
     main(sys.argv)
-
