@@ -13,14 +13,15 @@ prog : (expression (NEWLINE+ | EOF))+ EOF ;
 variable : VARNAME ;
 
 // Expressions such as arithmetic, assignments, etc
-expression : (assignment | unaryMinus | arithmetic) ;
+expression : (assignment | unaryMinus | arithmetic | concatenation) ;
 
 // Arithmetic Operators
-arithmetic : (unaryMinus | variable | NUMBER | DECIMAL) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | variable | NUMBER | DECIMAL))+ ;
+arithmetic : (unaryMinus | variable | NUMBER | DECIMAL | HEX | BOOL) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | variable | NUMBER | DECIMAL | HEX | BOOL))+ ;
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
+concatenation   : STRING (WHITESPACE* '+' WHITESPACE*) STRING ;
 
 // Assignments
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | DECIMAL | STRING) ;
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (concatenation | unaryMinus | variable | NUMBER | arithmetic | DECIMAL | STRING | HEX | BOOL) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 unaryMinus : MINUS (NUMBER | variable ) ;
@@ -32,11 +33,16 @@ unaryMinus : MINUS (NUMBER | variable ) ;
 fragment LOWER  : [a-z] ;
 fragment UPPER  : [A-Z] ;
 fragment DIGIT  : [0-9] ;
+fragment LOWERHEX : [a-f] ;
+fragment UPPERHEX : [A-F] ;
+
 
 NUMBER          : DIGIT+ ;
 MINUS           : '-' ;
 DECIMAL         : NUMBER '.' NUMBER ;
-STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' ;
+HEX             : '0' 'x' (LOWERHEX | UPPERHEX | DIGIT)+ ;
+STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' | '\'' (LETTER | WHITESPACE | NUMBER)* '\''; 
+BOOL            : 'True' | 'False' ;
 
 // Rules for variable naming
 LETTER          : (LOWER | UPPER | '_') ;
