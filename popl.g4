@@ -13,11 +13,12 @@ prog : (expression (NEWLINE+ | EOF))+ EOF ;
 variable : VARNAME ;
 
 // Expressions such as arithmetic, assignments, etc
-expression : (assignment | unaryMinus | arithmetic) ;
+expression : (assignment | unaryMinus | arithmetic | concatenation) ;
 
 // Arithmetic Operators
 arithmetic : (unaryMinus | variable | NUMBER | DECIMAL | HEX | BOOL) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | variable | NUMBER | DECIMAL | HEX | BOOL))+ ;
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
+concatenation   : STRING (WHITESPACE* '+' WHITESPACE*) STRING ;
 
 // Assignments
 assignment : variable WHITESPACE* assignmentOp WHITESPACE* (unaryMinus | variable | NUMBER | arithmetic | DECIMAL | STRING | HEX | BOOL) ;
