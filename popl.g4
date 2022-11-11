@@ -7,7 +7,7 @@ grammar popl;
  */
 
 // program entry point
-prog : ((expression | assignment | standaloneNUM | STRING) (NEWLINE+ | EOF))+ EOF ;
+prog : ((expression | assignment | standaloneNUM | STRING) (NEWLINE+ | NEWLINE* EOF))+ ;
 
 // Requirements for variable names
 variable : VARNAME ;
