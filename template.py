@@ -1,6 +1,7 @@
 # this generates a parse tree from grammar [grammarName].g4
 import sys
 from antlr4 import *
+from antlr4._pygrun import beautify_lisp_string
 from ParserLibs.[grammarName]Lexer import [grammarName]Lexer
 from ParserLibs.[grammarName]Parser import [grammarName]Parser
 
@@ -14,7 +15,7 @@ def main(argv):
     tokens = CommonTokenStream(lexer)
     parser = [grammarName]Parser(tokens)
     tree = parser.prog()
-    print(tree.toStringTree(recog=parser))
+    print(beautify_lisp_string(tree.toStringTree(recog=parser)))
 
 if __name__ == '__main__':
     main(sys.argv)

@@ -7,24 +7,26 @@ grammar popl;
  */
 
 // program entry point
-prog : (expression (NEWLINE+ | EOF))+ EOF ;
+prog : ((expression | assignment | standaloneNUM | STRING) (NEWLINE+ | NEWLINE* EOF))+ ;
 
 // Requirements for variable names
 variable : VARNAME ;
 
 // Expressions such as arithmetic, assignments, etc
-expression : (assignment | unaryMinus | arithmetic | concatenation) ;
+expression : (unaryMinus| arithmetic | concatenation) ; 
+standaloneNUM : (variable | NUMBER | DECIMAL | HEX | BOOL) ; 
 
 // Arithmetic Operators
-arithmetic : (unaryMinus | variable | NUMBER | DECIMAL | HEX | BOOL) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | variable | NUMBER | DECIMAL | HEX | BOOL))+ ;
+arithmetic : (unaryMinus | standaloneNUM) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | standaloneNUM))+ ;
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
-concatenation   : STRING (WHITESPACE* '+' WHITESPACE*) STRING ;
+concatenation   : (STRING | variable) ((WHITESPACE* '+' WHITESPACE*) (STRING | variable))+ ;
+unaryMinus : MINUS (standaloneNUM ) ;
 
 // Assignments
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (concatenation | unaryMinus | variable | NUMBER | arithmetic | DECIMAL | STRING | HEX | BOOL) ;
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standaloneNUM | STRING) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
-unaryMinus : MINUS (NUMBER | variable ) ;
+
 
 /*
  *  Lexer rules
