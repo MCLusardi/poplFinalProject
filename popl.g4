@@ -19,7 +19,7 @@ standaloneNUM : (variable | NUMBER | DECIMAL | HEX | BOOL) ;
 // Arithmetic Operators
 arithmetic : (unaryMinus | standaloneNUM) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | standaloneNUM))+ ;
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
-concatenation   : STRING (WHITESPACE* '+' WHITESPACE*) STRING ;
+concatenation   : (STRING | variable) ((WHITESPACE* '+' WHITESPACE*) (STRING | variable))+ ;
 unaryMinus : MINUS (standaloneNUM ) ;
 
 // Assignments

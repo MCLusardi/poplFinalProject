@@ -20,5 +20,9 @@ test1 = "hi"
 test2 = 'hi'
 another_test = test1 + test2
 
+var = car + "string" + "more" + var + "strings"
+var = "string" + var + "another" + 'string'
+var = oneVar + anotherVar
+
 test = 0x10
 test = 0xa1f
