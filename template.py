@@ -30,7 +30,7 @@ def main(argv):
 
     if gui:
         # I hate this method with a passion but antlr-tools is bases everything off sys.argv
-        sys.argv = ['antlr4-parse', 'popl.g4', 'prog', '-gui', sys.argv[2]]
+        sys.argv = ['antlr4-parse', '[grammarName].g4', 'prog', '-gui', sys.argv[2]]
         interp()
 
 if __name__ == '__main__':
