@@ -45,6 +45,7 @@ DECIMAL         : NUMBER '.' NUMBER ;
 HEX             : '0' 'x' (LOWERHEX | UPPERHEX | DIGIT)+ ;
 STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' | '\'' (LETTER | WHITESPACE | NUMBER)* '\''; 
 BOOL            : 'True' | 'False' ;
+CONDITION       : '=' | '<' | '>' | '<=' | '>=' | '==' | '!=' | 'and' | 'or' | 'not' ;
 
 // Rules for variable naming
 LETTER          : (LOWER | UPPER | '_') ;
