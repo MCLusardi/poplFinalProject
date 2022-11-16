@@ -45,8 +45,8 @@ DECIMAL         : NUMBER '.' NUMBER ;
 HEX             : '0' 'x' (LOWERHEX | UPPERHEX | DIGIT)+ ;
 STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' | '\'' (LETTER | WHITESPACE | NUMBER)* '\''; 
 BOOL            : 'True' | 'False' ;
-CONDITION       : '=' | '<' | '>' | '<=' | '>=' | '==' | '!=' | 'and' | 'or' ;
-NOT             : 'not'
+CONDITION       : '<' | '>' | '<=' | '>=' | '==' | '!=' | 'and' | 'or' ;
+NOT             : 'not' ;
 
 // Rules for variable naming
 LETTER          : (LOWER | UPPER | '_') ;
@@ -54,3 +54,4 @@ VARNAME         : LETTER (LETTER | DIGIT)* ;
 
 NEWLINE         : [\r\n]+ ;
 WHITESPACE      : [ ]+ ;
+TAB             : [\t] ;
