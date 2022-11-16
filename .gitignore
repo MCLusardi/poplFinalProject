@@ -1,3 +1,4 @@
 ParserLibs/
 parser*.py
 .antlr/
+.DS_Store

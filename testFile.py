@@ -26,3 +26,16 @@ var = oneVar + anotherVar
 
 test = 0x10
 test = 0xa1f
+
+not "potatoes"
+3 < 5
+mittens > dust_bunnies
+mittens <= dust_bunnies
+mittens >= dust_bunnies
+"Horseshoes" >= "horseshoes"
+10 == 10
+pie == 908
+popcorn != cheeseSauce
+cookies and cream
+strawberries or blueberries
+WhippedCream or Pudding75Spoonfuls
