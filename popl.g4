@@ -7,7 +7,7 @@ grammar popl;
  */
 
 // program entry point
-prog : ((expression | assignment | standaloneNUM | STRING) (NEWLINE+ | NEWLINE* EOF))+ ;
+prog : ((expression | assignment | standaloneNUM | STRING | conditional) (NEWLINE+ | NEWLINE* EOF))+ ;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -26,7 +26,10 @@ unaryMinus : MINUS (standaloneNUM ) ;
 assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standaloneNUM | STRING) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
-
+// Conditionals
+conditional : (standaloneNUM | variable | STRING) (WHITESPACE* CONDITION WHITESPACE*) (standaloneNUM | variable | STRING)
+            | NOT WHITESPACE+ (standaloneNUM | variable | STRING) 
+            ;
 
 /*
  *  Lexer rules
@@ -54,4 +57,8 @@ VARNAME         : LETTER (LETTER | DIGIT)* ;
 
 NEWLINE         : [\r\n]+ ;
 WHITESPACE      : [ ]+ ;
+<<<<<<< HEAD
 TAB             : [\t] ;
+=======
+TAB             : [\t] ;
+>>>>>>> 6806ac0dd941acf04b2834c9d08fd1f5eff7e7e9
