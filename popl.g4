@@ -57,8 +57,4 @@ VARNAME         : LETTER (LETTER | DIGIT)* ;
 
 NEWLINE         : [\r\n]+ ;
 WHITESPACE      : [ ]+ ;
-<<<<<<< HEAD
 TAB             : [\t] ;
-=======
-TAB             : [\t] ;
->>>>>>> 6806ac0dd941acf04b2834c9d08fd1f5eff7e7e9
