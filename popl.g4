@@ -27,7 +27,7 @@ assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standal
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 // Conditionals
-conditional : (standaloneNUM | variable | STRING) (WHITESPACE* CONDITION WHITESPACE*) (standaloneNUM | variable | STRING)
+conditional : (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION WHITESPACE*) (standaloneNUM | variable | STRING))+
             | NOT WHITESPACE+ (standaloneNUM | variable | STRING) 
             ;
 
