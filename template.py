@@ -8,19 +8,32 @@ from ParserLibs.[grammarName]Parser import [grammarName]Parser
 
 def main(argv):
     gui = False
-    if len(sys.argv) > 1:
+    fileIndex = 0
+
+    if len(sys.argv) == 1:
+        input = InputStream(sys.stdin.readline())
+    
+    elif len(sys.argv) == 2:
         if sys.argv[1] == '-gui':
-            gui = True
-            if len(sys.argv) == 2:
-                raise Exception('Input file is required with -gui option')
-            elif len(sys.argv) == 3:
-                input = FileStream(sys.argv[2])
-            else:
-                raise Exception("Unexpected number of input parameters")
+            raise Exception('Input file is required with -gui option')
         else:
             input = FileStream(sys.argv[1])
+        
+    elif len(sys.argv) == 3:
+        if '-gui' in sys.argv:
+            gui = True
+            if sys.argv[1] == '-gui':
+                fileIndex = 2
+            else:
+                fileIndex = 1
+            input = FileStream(sys.argv[fileIndex])
+
+        else:
+            raise Exception("Unexpected number of input parameters")
+
     else:
-        input = InputStream(sys.stdin.readline())
+        raise Exception("Unexpected number of input parameters")
+
 
     lexer = [grammarName]Lexer(input)
     tokens = CommonTokenStream(lexer)
@@ -30,7 +43,7 @@ def main(argv):
 
     if gui:
         # I hate this method with a passion but antlr-tools is bases everything off sys.argv
-        sys.argv = ['antlr4-parse', '[grammarName].g4', 'prog', '-gui', sys.argv[2]]
+        sys.argv = ['antlr4-parse', '[grammarName].g4', 'prog', '-gui', sys.argv[fileIndex]]
         interp()
 
 if __name__ == '__main__':
