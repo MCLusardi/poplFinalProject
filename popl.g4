@@ -33,8 +33,8 @@ conditional : (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION WHITES
             | NOT WHITESPACE+ (standaloneNUM | variable | STRING | conditional) 
             ;
 
-ifStatement : IF WHITESPACE conditional WHITESPACE* COLON WHITESPACE* NEWLINE (WHITESPACE codeLine NEWLINE)+ elseStatement? ;
-elseStatement : ELSE WHITESPACE* COLON WHITESPACE* NEWLINE (WHITESPACE codeLine NEWLINE)+ ;
+ifStatement : IF WHITESPACE conditional WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ elseStatement? ;
+elseStatement : ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
 /*
  *  Lexer rules
