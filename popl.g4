@@ -7,7 +7,9 @@ grammar popl;
  */
 
 // program entry point
-prog : ((expression | assignment | standaloneNUM | STRING | conditional) (NEWLINE+ | NEWLINE* EOF))+ ;
+prog : (codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
+
+codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional) ;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -27,9 +29,12 @@ assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standal
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 // Conditionals
-conditional : (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION WHITESPACE*) (standaloneNUM | variable | STRING))+
-            | NOT WHITESPACE+ (standaloneNUM | variable | STRING | conditional) 
-            ;
+conditional : (NOT WHITESPACE)? (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION (WHITESPACE NOT)? WHITESPACE*) (standaloneNUM | variable | STRING))* ;
+
+ifStatement : IF ifBody ;
+elseIfStatement : NEWLINE ELSEIF ifBody ;
+ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseIfStatement | elseStatement)? ;
+elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
 /*
  *  Lexer rules
@@ -50,11 +55,16 @@ STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' | '\'' (LETTER | WHITESP
 BOOL            : 'True' | 'False' ;
 CONDITION       : '<' | '>' | '<=' | '>=' | '==' | '!=' | 'and' | 'or' ;
 NOT             : 'not' ;
+IF              : 'if' ;
+ELSE            : 'else' ;
+ELSEIF          : 'elif' ;
+COLON           : [:] ;
 
 // Rules for variable naming
-LETTER          : (LOWER | UPPER | '_') ;
 VARNAME         : LETTER (LETTER | DIGIT)* ;
+LETTER          : (LOWER | UPPER | '_') ;
 
 NEWLINE         : [\r\n]+ ;
-WHITESPACE      : [ ]+ ;
+WHITESPACE      : (SPACE | TAB)+ ;
+SPACE           : [ ] ;
 TAB             : [\t] ;
