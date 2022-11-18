@@ -7,7 +7,7 @@ grammar popl;
  */
 
 // program entry point
-prog : (codeLine (NEWLINE+ | NEWLINE* EOF))+ ;
+prog : (codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
 
 codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional) ;
 
@@ -29,7 +29,7 @@ assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standal
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 // Conditionals
-conditional : (NOT WHITESPACE)? (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION (WHITESPACE NOT)? WHITESPACE*) (standaloneNUM | variable | STRING))+ ;
+conditional : (NOT WHITESPACE)? (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION (WHITESPACE NOT)? WHITESPACE*) (standaloneNUM | variable | STRING))* ;
 
 ifStatement : IF ifBody ;
 elseIfStatement : NEWLINE ELSEIF ifBody ;
