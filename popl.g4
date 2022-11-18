@@ -29,13 +29,11 @@ assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standal
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 // Conditionals
-conditional : (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION WHITESPACE*) (standaloneNUM | variable | STRING))+
-            | NOT WHITESPACE+ (standaloneNUM | variable | STRING | conditional) 
-            ;
+conditional : (NOT WHITESPACE)? (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION (WHITESPACE NOT)? WHITESPACE*) (standaloneNUM | variable | STRING))+ ;
 
 ifStatement : IF ifBody ;
 elseIfStatement : NEWLINE ELSEIF ifBody ;
-ifBody : WHITESPACE conditional WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseIfStatement | elseStatement)? ;
+ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseIfStatement | elseStatement)? ;
 elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
 /*
