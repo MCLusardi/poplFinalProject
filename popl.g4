@@ -34,7 +34,7 @@ conditional : (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION WHITES
             ;
 
 ifStatement : IF WHITESPACE conditional WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ elseStatement? ;
-elseStatement : ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
+elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
 /*
  *  Lexer rules
