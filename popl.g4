@@ -60,8 +60,8 @@ ELSE            : 'else' ;
 COLON           : [:] ;
 
 // Rules for variable naming
-LETTER          : (LOWER | UPPER | '_') ;
 VARNAME         : LETTER (LETTER | DIGIT)* ;
+LETTER          : (LOWER | UPPER | '_') ;
 
 NEWLINE         : [\r\n]+ ;
 WHITESPACE      : (SPACE | TAB)+ ;
