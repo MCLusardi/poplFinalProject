@@ -33,7 +33,9 @@ conditional : (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION WHITES
             | NOT WHITESPACE+ (standaloneNUM | variable | STRING | conditional) 
             ;
 
-ifStatement : IF WHITESPACE conditional WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ elseStatement? ;
+ifStatement : IF ifBody ;
+elseIfStatement : NEWLINE ELSEIF ifBody ;
+ifBody : WHITESPACE conditional WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseIfStatement | elseStatement)? ;
 elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
 /*
@@ -57,6 +59,7 @@ CONDITION       : '<' | '>' | '<=' | '>=' | '==' | '!=' | 'and' | 'or' ;
 NOT             : 'not' ;
 IF              : 'if' ;
 ELSE            : 'else' ;
+ELSEIF          : 'elif' ;
 COLON           : [:] ;
 
 // Rules for variable naming
