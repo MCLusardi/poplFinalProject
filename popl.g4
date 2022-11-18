@@ -7,7 +7,9 @@ grammar popl;
  */
 
 // program entry point
-prog : ((expression | assignment | standaloneNUM | STRING | conditional) (NEWLINE+ | NEWLINE* EOF))+ ;
+prog : (codeLine (NEWLINE+ | NEWLINE* EOF))+ ;
+
+codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional) ;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -31,6 +33,8 @@ conditional : (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION WHITES
             | NOT WHITESPACE+ (standaloneNUM | variable | STRING | conditional) 
             ;
 
+ifStatement : IF WHITESPACE conditional COLON NEWLINE (WHITESPACE codeLine NEWLINE)+ ;
+
 /*
  *  Lexer rules
  */
@@ -50,6 +54,9 @@ STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' | '\'' (LETTER | WHITESP
 BOOL            : 'True' | 'False' ;
 CONDITION       : '<' | '>' | '<=' | '>=' | '==' | '!=' | 'and' | 'or' ;
 NOT             : 'not' ;
+IF              : 'if' ;
+ELSE            : 'else' ;
+COLON           : [:] ;
 
 // Rules for variable naming
 LETTER          : (LOWER | UPPER | '_') ;
