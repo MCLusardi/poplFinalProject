@@ -1,15 +1,40 @@
 grammar popl;
 
 // Source: https://tomassetti.me/antlr-mega-tutorial/
+// Indentation using this plugin: https://github.com/yshavit/antlr-denter
+
+tokens { INDENT, DEDENT }
+
+@lexer::header {
+from antlr_denter.DenterHelper import DenterHelper
+from ParserLibs.poplParser import poplParser
+}
+
+@lexer::members {
+class poplDenter(DenterHelper):
+    def __init__(self, lexer, nl_token, indent_token, dedent_token, ignore_eof):
+        super().__init__(nl_token, indent_token, dedent_token, ignore_eof)
+        self.lexer: poplLexer = lexer
+
+    def pull_token(self):
+        return super(poplLexer, self.lexer).nextToken()
+
+denter = None
+
+def nextToken(self):
+    if not self.denter:
+        self.denter = self.poplDenter(self, self.NL, poplParser.INDENT, poplParser.DEDENT, False)
+    return self.denter.next_token()
+}
 
 /*
  *  Parser rules
  */
 
 // program entry point
-prog : (codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
+prog : (codeLine)+ ;
 
-codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional) ;
+codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional) WHITESPACE* NL*;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -32,9 +57,11 @@ assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 conditional : (NOT WHITESPACE)? (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION (WHITESPACE NOT)? WHITESPACE*) (standaloneNUM | variable | STRING))* ;
 
 ifStatement : IF ifBody ;
-elseIfStatement : NEWLINE ELSEIF ifBody ;
-ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseIfStatement | elseStatement)? ;
-elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
+elseIfStatement : ELSEIF ifBody ;
+ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* block (elseIfStatement | elseStatement)? ;
+elseStatement : ELSE WHITESPACE* COLON WHITESPACE* block ;
+
+block : INDENT codeLine+ DEDENT ;
 
 /*
  *  Lexer rules
@@ -64,7 +91,8 @@ COLON           : [:] ;
 VARNAME         : LETTER (LETTER | DIGIT)* ;
 LETTER          : (LOWER | UPPER | '_') ;
 
-NEWLINE         : [\r\n]+ ;
+NL              : ('\r'? '\n' ' '*) | ('\r'? '\n' '\t'*) ;
+// NEWLINE         : [\r\n]+ ;
 WHITESPACE      : (SPACE | TAB)+ ;
 SPACE           : [ ] ;
 TAB             : [\t] ;
