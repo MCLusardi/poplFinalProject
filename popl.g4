@@ -9,7 +9,7 @@ grammar popl;
 // program entry point
 prog : (codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
 
-codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional) ;
+codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | forLoop) ;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -36,6 +36,10 @@ elseIfStatement : NEWLINE ELSEIF ifBody ;
 ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseIfStatement | elseStatement)? ;
 elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
+// Loops
+forLoop : FOR WHITESPACE variable WHITESPACE IN WHITESPACE variable WHITESPACE* COLON WHITESPACE* forBody;
+forBody : (NEWLINE WHITESPACE codeLine)+ ;
+
 /*
  *  Lexer rules
  */
@@ -58,6 +62,8 @@ NOT             : 'not' ;
 IF              : 'if' ;
 ELSE            : 'else' ;
 ELSEIF          : 'elif' ;
+FOR             : 'for' ;
+IN              : 'in' ;
 COLON           : [:] ;
 
 // Rules for variable naming
