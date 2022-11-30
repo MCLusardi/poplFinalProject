@@ -55,7 +55,7 @@ NUMBER          : DIGIT+ ;
 MINUS           : '-' ;
 DECIMAL         : NUMBER '.' NUMBER ;
 HEX             : '0' 'x' (LOWERHEX | UPPERHEX | DIGIT)+ ;
-STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' | '\'' (LETTER | WHITESPACE | NUMBER)* '\''; 
+STRING          : '"'(LETTER | WHITESPACE | NUMBER | PUNCTUATION | '\'')*'"' | '\'' (LETTER | WHITESPACE | NUMBER | PUNCTUATION)* '\''; 
 BOOL            : 'True' | 'False' ;
 CONDITION       : '<' | '>' | '<=' | '>=' | '==' | '!=' | 'and' | 'or' ;
 NOT             : 'not' ;
@@ -65,6 +65,7 @@ ELSEIF          : 'elif' ;
 FOR             : 'for' ;
 IN              : 'in' ;
 COLON           : [:] ;
+PUNCTUATION     : '?' | '!' | '.' | ':' | ';' | ',' | '{' | '}' | '(' | ')' | '[' | ']' | '|' | '/' | '\\' ;
 
 // Rules for variable naming
 VARNAME         : LETTER (LETTER | DIGIT)* ;
