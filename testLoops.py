@@ -2,6 +2,7 @@ i = 0
 while i < 8:
     potato = 5
 
+flag = True
 while flag == True:
     potato = 1
     flag = False
@@ -34,3 +35,17 @@ else:
     cake = 'pumpkin cheesecake'
     frosting = 'buttercream'
     k = 5
+
+while k < 125:
+    flag = True
+    while flag == True:
+        potato = 1
+        flag = False
+        continue
+    else:
+        potato = 0
+    k = k + 1
+else:
+    cake = 'fruitcake'
+    frosting = 'apricot glaze'
+    k = -50
