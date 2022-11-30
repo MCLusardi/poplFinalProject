@@ -29,7 +29,7 @@ assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standal
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 // Conditionals
-conditional : (NOT WHITESPACE)? (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION (WHITESPACE NOT)? WHITESPACE*) (standaloneNUM | variable | STRING))* ;
+conditional : (NOT WHITESPACE)? (standaloneNUM | variable | STRING | expression) ((WHITESPACE* CONDITION (WHITESPACE NOT)? WHITESPACE*) (standaloneNUM | variable | STRING | expression))* ;
 
 ifStatement : IF ifBody ;
 elseIfStatement : NEWLINE ELSEIF ifBody ;
