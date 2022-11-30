@@ -1,6 +1,15 @@
 i = 0
 while i < 8:
     potato = 5
+    i = i + 1
+
+while i < 50:
+    i = i + 1
+    continue
+
+while i < 100:
+    i = i + 1
+    break
 
 flag = True
 while flag == True:
@@ -44,6 +53,13 @@ while k < 125:
         continue
     else:
         potato = 0
+
+    if cake == "cherry cake":
+        break
+    elif cake == "pumpkin cheesecake":
+        cake = "chocolate cake"
+    else:
+        cake = "teacake"
     k = k + 1
 else:
     cake = 'fruitcake'
