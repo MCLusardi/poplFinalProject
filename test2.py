@@ -1,1 +1,5 @@
-test = 10
+#Hello!@  #$%^ &*(): " ;'<>,.?/"  
+""" hello
+hello
+12345   hello """
+
