@@ -25,7 +25,7 @@ concatenation   : (STRING | variable) ((WHITESPACE* '+' WHITESPACE*) (STRING | v
 unaryMinus : MINUS (standaloneNUM ) ;
 
 // Assignments
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standaloneNUM | STRING) ;
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standaloneNUM | STRING | LIST) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 // Conditionals

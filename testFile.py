@@ -55,4 +55,6 @@ WhippedCream = 1
 strawberries or blueberries
 WhippedCream or Pudding75Spoonfuls
 "test"
+x = []
+x = [1, True,    False,    0x10, "hi"    , 23  , -1,   2.2, -2.2, -0x00, 10]
 #Hello 1234 []{} ,./<>?     \|:"<>?" !@#$%^&*()
