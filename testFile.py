@@ -58,3 +58,17 @@ WhippedCream or Pudding75Spoonfuls
 x = []
 x = [1, True,    False,    0x10, "hi"    , 23  , -1,   2.2, -2.2, -0x00, 10]
 #Hello 1234 []{} ,./<>?     \|:"<>?" !@#$%^&*()
+"""
+this
+is
+a
+loooooong 
+comment
+"""
+
+'''
+This
+one 
+is too
+erwqoiu3489-sjhdsfpouiqwrpyhdsaghsjkdna;l
+'''

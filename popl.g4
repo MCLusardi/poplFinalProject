@@ -22,10 +22,10 @@ standaloneNUM : (variable | NUMBER | DECIMAL | HEX | BOOL) ;
 arithmetic : (unaryMinus | standaloneNUM) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | standaloneNUM))+ ;
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 concatenation   : (STRING | variable) ((WHITESPACE* '+' WHITESPACE*) (STRING | variable))+ ;
-unaryMinus : MINUS (standaloneNUM ) ;
+unaryMinus : MINUS+ WHITESPACE* (standaloneNUM ) ;
 
 // Assignments
-assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standaloneNUM | STRING | LIST) ;
+assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standaloneNUM | STRING | list) ;
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 // Conditionals
@@ -36,6 +36,10 @@ elseIfStatement : NEWLINE ELSEIF ifBody ;
 ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseIfStatement | elseStatement)? ;
 elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
+// Lists
+list            : emptyList | nonemptyList ;
+emptyList       : '[' WHITESPACE* ']' ;
+nonemptyList      : '[' (WHITESPACE* ((standaloneNUM | unaryMinus) | (STRING)) WHITESPACE*) (',' WHITESPACE* ((standaloneNUM | unaryMinus) | (STRING)) WHITESPACE*)* ']' ;
 
 
 /*
@@ -64,9 +68,7 @@ COLON           : [:] ;
 COMMENTLINE     : COMMENT | BLOCKCOMMENT ;
 COMMENT         : '#' ~[\f\n\r]*;
 BLOCKCOMMENT    : '"""' ~[\\]* '"""' | '\'\'\'' ~[\\]* '\'\'\'';
-LIST            : EMPTYLIST | NONEMPTYLIST ;
-EMPTYLIST       : '[' WHITESPACE* ']' ;
-NONEMPTYLIST      : '[' (WHITESPACE* ((MINUS*(NUMBER | DECIMAL | HEX | BOOL)) | (STRING)) WHITESPACE*) (',' WHITESPACE* ((MINUS*(NUMBER | DECIMAL | HEX | BOOL)) | (STRING)) WHITESPACE*)* ']' ;
+
 
 
 // Rules for variable naming
