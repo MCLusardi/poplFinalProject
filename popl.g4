@@ -7,7 +7,7 @@ grammar popl;
  */
 
 // program entry point
-prog : (codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
+prog : (NEWLINE* codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
 
 codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | COMMENTLINE ) ;
 
