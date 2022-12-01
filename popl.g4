@@ -9,7 +9,7 @@ grammar popl;
 // program entry point
 prog : (NEWLINE* codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
 
-codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | COMMENTLINE ) ;
+codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | commentline ) ;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -36,6 +36,8 @@ elseIfStatement : NEWLINE ELSEIF ifBody ;
 ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseIfStatement | elseStatement)? ;
 elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
+commentline : COMMENT | BLOCKCOMMENT ;
+
 
 
 /*
@@ -61,7 +63,6 @@ IF              : 'if' ;
 ELSE            : 'else' ;
 ELSEIF          : 'elif' ;
 COLON           : [:] ;
-COMMENTLINE     : COMMENT | BLOCKCOMMENT ;
 COMMENT         : '#' ~[\f\n\r]*;
 BLOCKCOMMENT    : '"""' ~[\\]* '"""' | '\'\'\'' ~[\\]* '\'\'\'';
 LIST            : EMPTYLIST | NONEMPTYLIST ;
