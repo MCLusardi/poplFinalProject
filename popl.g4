@@ -37,8 +37,8 @@ ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPA
 elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
 // Loops
-forLoop : FOR WHITESPACE variable WHITESPACE IN WHITESPACE variable WHITESPACE* COLON WHITESPACE* forBody;
-forBody : (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? (elseStatement)? ;
+forLoop : FOR WHITESPACE variable WHITESPACE IN WHITESPACE variable WHITESPACE* COLON WHITESPACE* forBody (elseStatement)?;
+forBody : ((NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))?) | NEWLINE WHITESPACE PASS ;
 whileLoop : WHILE whileBody ;
 whileBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? (elseStatement)? ;
 
@@ -66,6 +66,7 @@ ELSE            : 'else' ;
 ELSEIF          : 'elif' ;
 FOR             : 'for' ;
 IN              : 'in' ;
+PASS            : 'pass' ;
 COLON           : [:] ;
 PUNCTUATION     : '?' | '!' | '.' | ':' | ';' | ',' | '{' | '}' | '(' | ')' | '[' | ']' | '|' | '/' | '\\' ;
 WHILE           : 'while' ;
