@@ -52,6 +52,8 @@ cream = 1
 cookies and cream
 strawberries = 1
 WhippedCream = 1
+blueberries = 'ASDF'
+Pudding75Spoonfuls = 755
 strawberries or blueberries
 WhippedCream or Pudding75Spoonfuls
 "test"
