@@ -2,6 +2,7 @@ i = 0
 while i < 8:
     potato = 5
     i = i + 1
+    pass
 
 while i < 50:
     i = i + 1

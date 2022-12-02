@@ -14,14 +14,6 @@ for u in ["I", "love", y, 0, u]:
     rando = "hello " + "world"
     continue
 
-    
-    x = 4
-    if x < 3*werty:
-        "I'm in an if statement"
-    for _89 in yet_another_list:
-        0x12334231
-        _89 <= 40 + 30
-
 for y in "tomato":
     y = 'z'
 else:
