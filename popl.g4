@@ -7,7 +7,7 @@ grammar popl;
  */
 
 // program entry point
-prog : (codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
+prog : (NEWLINE* codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
 
 codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | forLoop | whileLoop) ;
 
@@ -38,9 +38,9 @@ elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE c
 
 // Loops
 forLoop : FOR WHITESPACE variable WHITESPACE IN WHITESPACE variable WHITESPACE* COLON WHITESPACE* forBody;
-forBody : (NEWLINE WHITESPACE codeLine)+ ;
+forBody : (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? (elseStatement)? ;
 whileLoop : WHILE whileBody ;
-whileBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseStatement)? ;
+whileBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? (elseStatement)? ;
 
 /*
  *  Lexer rules
