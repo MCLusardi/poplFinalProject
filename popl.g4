@@ -9,7 +9,7 @@ grammar popl;
 // program entry point
 prog : (NEWLINE* codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
 
-codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | commentline ) ;
+codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | forLoop | whileLoop | PASS | commentline) ;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -29,7 +29,7 @@ assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standal
 assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 
 // Conditionals
-conditional : (NOT WHITESPACE)? (standaloneNUM | variable | STRING) ((WHITESPACE* CONDITION (WHITESPACE NOT)? WHITESPACE*) (standaloneNUM | variable | STRING))* ;
+conditional : (NOT WHITESPACE)? (standaloneNUM | variable | STRING | expression) ((WHITESPACE* CONDITION (WHITESPACE NOT)? WHITESPACE*) (standaloneNUM | variable | STRING | expression))* ;
 
 ifStatement : IF ifBody ;
 elseIfStatement : NEWLINE ELSEIF ifBody ;
@@ -43,6 +43,11 @@ list            : emptyList | nonemptyList ;
 emptyList       : '[' WHITESPACE* ']' ;
 nonemptyList      : '[' (WHITESPACE* ((standaloneNUM | unaryMinus) | (STRING)) WHITESPACE*) (',' WHITESPACE* ((standaloneNUM | unaryMinus) | (STRING)) WHITESPACE*)* ']' ;
 
+// Loops
+forLoop : FOR WHITESPACE variable WHITESPACE IN WHITESPACE variable WHITESPACE* COLON WHITESPACE* forBody (elseStatement)?;
+forBody : (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? ;
+whileLoop : WHILE whileBody ;
+whileBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? (elseStatement)? ;
 
 /*
  *  Lexer rules
@@ -59,18 +64,25 @@ NUMBER          : DIGIT+ ;
 MINUS           : '-' ;
 DECIMAL         : NUMBER '.' NUMBER ;
 HEX             : '0' 'x' (LOWERHEX | UPPERHEX | DIGIT)+ ;
-STRING          : '"'(LETTER | WHITESPACE | NUMBER)*'"' | '\'' (LETTER | WHITESPACE | NUMBER)* '\''; 
+STRING          : '"'(LETTER | WHITESPACE | NUMBER | PUNCTUATION | '\'')*'"' | '\'' (LETTER | WHITESPACE | NUMBER | PUNCTUATION)* '\''; 
 BOOL            : 'True' | 'False' ;
 CONDITION       : '<' | '>' | '<=' | '>=' | '==' | '!=' | 'and' | 'or' ;
 NOT             : 'not' ;
 IF              : 'if' ;
 ELSE            : 'else' ;
 ELSEIF          : 'elif' ;
+FOR             : 'for' ;
+IN              : 'in' ;
+PASS            : 'pass' ;
 COLON           : [:] ;
 COMMENT         : '#' ~[\f\n\r]*;
 BLOCKCOMMENT    : '"""' ~[\\]* '"""' | '\'\'\'' ~[\\]* '\'\'\'';
 
 
+PUNCTUATION     : '?' | '!' | '.' | ':' | ';' | ',' | '{' | '}' | '(' | ')' | '[' | ']' | '|' | '/' | '\\' ;
+WHILE           : 'while' ;
+BREAK           : 'break' ;
+CONTINUE        : 'continue' ;
 
 // Rules for variable naming
 VARNAME         : LETTER (LETTER | DIGIT)* ;
