@@ -22,7 +22,7 @@ standaloneNUM : (variable | NUMBER | DECIMAL | HEX | BOOL) ;
 arithmetic : (unaryMinus | standaloneNUM) (WHITESPACE* arithmeticOp WHITESPACE* (unaryMinus | standaloneNUM))+ ;
 arithmeticOp : ('+' | '-' | '*' | '/' | '%') ;
 concatenation   : (STRING | variable) ((WHITESPACE* '+' WHITESPACE*) (STRING | variable))+ ;
-unaryMinus : MINUS+ WHITESPACE* (standaloneNUM ) ;
+unaryMinus : (MINUS WHITESPACE*)+ WHITESPACE* (standaloneNUM ) ;
 
 // Assignments
 assignment : variable WHITESPACE* assignmentOp WHITESPACE* (expression | standaloneNUM | STRING | list) ;
