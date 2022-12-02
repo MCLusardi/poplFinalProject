@@ -9,6 +9,18 @@ for x in some_va4:
     for _89 in yet_another_list:
         0x12334231
         _89 <= 40 + 30
-    
+
+for y in "tomato":
+    y = 'z'
+else:
+    pizzaTopping = 'anchovies'
+
+for i in "cats":
+    pass
+
+for j in "ferrets":
+    pass
+else:
+    "hello budgies"
 
     

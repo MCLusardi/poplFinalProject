@@ -7,7 +7,7 @@ grammar popl;
  */
 
 // program entry point
-prog : (codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
+prog : (NEWLINE* codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
 
 codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | forLoop) ;
 
@@ -37,8 +37,8 @@ ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPA
 elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
 // Loops
-forLoop : FOR WHITESPACE variable WHITESPACE IN WHITESPACE variable WHITESPACE* COLON WHITESPACE* forBody;
-forBody : (NEWLINE WHITESPACE codeLine)+ ;
+forLoop : FOR WHITESPACE variable WHITESPACE IN WHITESPACE variable WHITESPACE* COLON WHITESPACE* forBody (elseStatement)?;
+forBody : ((NEWLINE WHITESPACE codeLine)+ | NEWLINE WHITESPACE PASS) ;
 
 /*
  *  Lexer rules
@@ -64,6 +64,7 @@ ELSE            : 'else' ;
 ELSEIF          : 'elif' ;
 FOR             : 'for' ;
 IN              : 'in' ;
+PASS            : 'pass' ;
 COLON           : [:] ;
 PUNCTUATION     : '?' | '!' | '.' | ':' | ';' | ',' | '{' | '}' | '(' | ')' | '[' | ']' | '|' | '/' | '\\' ;
 
