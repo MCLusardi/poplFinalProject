@@ -36,6 +36,7 @@ elseIfStatement : NEWLINE ELSEIF ifBody ;
 ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseIfStatement | elseStatement)? ;
 elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
 
+//Comment
 commentline : COMMENT | BLOCKCOMMENT ;
 
 // Lists
@@ -67,8 +68,8 @@ IF              : 'if' ;
 ELSE            : 'else' ;
 ELSEIF          : 'elif' ;
 COLON           : [:] ;
-COMMENT         : '#' ~[\f\n\r]*;
-BLOCKCOMMENT    : '"""' ~[\\]* '"""' | '\'\'\'' ~[\\]* '\'\'\'';
+COMMENT         : '#' ~[\r\n]* -> skip ;
+BLOCKCOMMENT    : '"""' ~[\\]* '"""' | '\'\'\'' ~[\\]* '\'\'\'' ;
 
 
 
