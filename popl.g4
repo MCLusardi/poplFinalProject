@@ -65,7 +65,7 @@ NUMBER          : DIGIT+ ;
 MINUS           : '-' ;
 DECIMAL         : NUMBER '.' NUMBER ;
 HEX             : '0' 'x' (LOWERHEX | UPPERHEX | DIGIT)+ ;
-STRING          : '"'(LETTER | WHITESPACE | NUMBER | PUNCTUATION | '\'')*'"' | '\'' (LETTER | WHITESPACE | NUMBER | PUNCTUATION)* '\''; 
+STRING          : '"'~[\r\n]*'"' | '\'' ~[\r\n]* '\''; 
 BOOL            : 'True' | 'False' ;
 CONDITION       : '<' | '>' | '<=' | '>=' | '==' | '!=' | 'and' | 'or' ;
 NOT             : 'not' ;
