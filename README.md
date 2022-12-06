@@ -3,6 +3,8 @@ Final Project for CS 4450 - Principles of Programming Languages
 
 University of Missouri, Section 01, Fall Semester 2022. Instructor: Dr. Ekincan Ufuktepe
 
+GitHub Repo Link: [https://github.com/MCLusardi/poplFinalProject](https://github.com/MCLusardi/poplFinalProject)
+
 ## Suggested Usage
 1. Run `chmod +x *.sh` in order to make the bash scripts executable
 2. Run `./setup.sh` to make sure the necessary dependencies are installed

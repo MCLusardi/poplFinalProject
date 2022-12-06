@@ -1,3 +1,4 @@
+
 test=1
 4
 test = 2
@@ -37,6 +38,9 @@ mittens > dust_bunnies
 mittens <= dust_bunnies
 mittens >= dust_bunnies
 "Horseshoes" >= "horseshoes"
+"""
+hello
+"""
 10 == 10
 pie =1
 pie == 908
@@ -48,6 +52,25 @@ cream = 1
 cookies and cream
 strawberries = 1
 WhippedCream = 1
+blueberries = 'ASDF'
+Pudding75Spoonfuls = 755
 strawberries or blueberries
 WhippedCream or Pudding75Spoonfuls
 "test"
+x = []
+x = [1, True,    False,    0x10, "hi"    , 23  , -1,   2.2, -2.2, -0x00, 10]
+#Hello 1234 []{} ,./<>?     \|:"<>?" !@#$%^&*()
+"""
+this
+is
+a
+loooooong 
+comment
+"""
+
+'''
+This
+one 
+is too
+erwqoiu3489-sjhdsfpouiqwrpyhdsaghsjkdna;l
+'''
