@@ -1,9 +1,9 @@
 
+
 x = y
 
 def funct(name) :
     x = 1
-    return x
 
 def funct(name) : return x
 
@@ -16,4 +16,35 @@ def funct(name) :
 
 def funct(name): 
     return func()
+
+while x < "asdfsa":
+    if test > 1:
+        xt = 10
+        zz = -100
+        while hello > howdy:
+            "hello " + "world"
+    elif test <= 0:
+        xt = -1
+    else:
+        xt = 1000
+
+
+
+if test > 1:
+    xt = 10
+    zz = -100
+elif test <= 0:
+    if test == 0:
+        xt = -1
+    else:
+        if yy < 10:
+            if xx < 100:
+                xt = 0
+                funct()
+            else:
+                xt = 65
+        else:
+            yy = 90
+else:
+    xt = 1000
 
