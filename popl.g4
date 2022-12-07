@@ -34,7 +34,7 @@ def nextToken(self):
 // program entry point
 
 prog : (codeLine)+ ;
-codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | forLoop | whileLoop | PASS | commentline) WHITESPACE* NL*;
+codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | forLoop | whileLoop | PASS | commentline | function) WHITESPACE* NL*;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -62,6 +62,7 @@ ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* block (elseIfStat
 elseStatement : ELSE WHITESPACE* COLON WHITESPACE* block ;
 
 block : INDENT codeLine+ DEDENT ;
+funcblock : INDENT (returncall | (codeLine+ returncall?)+ | PASS) DEDENT ;
 
 //Comment
 commentline : COMMENT | BLOCKCOMMENT ;
@@ -79,6 +80,16 @@ whileBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* block (NL WHIT
 
 // ifStatementLOOP : IF ifBodyLOOP ;
 // ifBodyLOOP  : ifBody (BREAK | CONTINUE)? ;
+
+//functions
+function : functiondef | functioncall ;
+functiondef : 'def' WHITESPACE funchead WHITESPACE* COLON WHITESPACE* (funcblock | codeLine | returncall) ;
+funchead : VARNAME WHITESPACE* '(' argument? ')' ;
+argument : VARNAME (',' VARNAME)* ;
+//funcbody : codeLine | (NL WHITESPACE codeLine)* ((NL WHITESPACE)* returncall)? |PASS;
+functioncall : (VARNAME WHITESPACE* '=' WHITESPACE*)? funchead ;
+returncall : 'return' WHITESPACE (standaloneNUM | expression | STRING | funchead) NL* ;
+
 
 /*
  *  Lexer rules
