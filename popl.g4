@@ -73,9 +73,12 @@ nonemptyList      : '[' (WHITESPACE* ((standaloneNUM | unaryMinus) | (STRING)) W
 
 // Loops
 forLoop : FOR WHITESPACE variable WHITESPACE IN WHITESPACE variable WHITESPACE* COLON WHITESPACE* forBody (elseStatement)?;
-forBody : (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? ;
+forBody : block (NL WHITESPACE* (BREAK | CONTINUE))? ;
 whileLoop : WHILE whileBody ;
-whileBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? (elseStatement)? ;
+whileBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* block (NL WHITESPACE (BREAK | CONTINUE))? (elseStatement)? ;
+
+// ifStatementLOOP : IF ifBodyLOOP ;
+// ifBodyLOOP  : ifBody (BREAK | CONTINUE)? ;
 
 /*
  *  Lexer rules
