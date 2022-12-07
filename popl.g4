@@ -9,7 +9,7 @@ grammar popl;
 // program entry point
 prog : (NEWLINE* codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
 
-codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | forLoop | whileLoop | PASS | commentline) ;
+codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | forLoop | whileLoop | PASS | commentline | function) ;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -49,6 +49,16 @@ forLoop : FOR WHITESPACE variable WHITESPACE IN WHITESPACE variable WHITESPACE* 
 forBody : (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? ;
 whileLoop : WHILE whileBody ;
 whileBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? (elseStatement)? ;
+
+//functions
+function : functiondef | functioncall ;
+functiondef : 'def' WHITESPACE funchead WHITESPACE* COLON WHITESPACE* funcbody ;
+funchead : VARNAME WHITESPACE* '(' argument? ')' ;
+argument : VARNAME (',' VARNAME)* ;
+funcbody : codeLine | (NEWLINE WHITESPACE codeLine)* ((NEWLINE WHITESPACE)* returncall)? |PASS;
+functioncall : (VARNAME WHITESPACE* '=' WHITESPACE*)? funchead ;
+returncall : 'return' WHITESPACE (standaloneNUM | unaryMinus | STRING | arithmetic | funchead) ;
+
 
 /*
  *  Lexer rules
