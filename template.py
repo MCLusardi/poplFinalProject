@@ -9,12 +9,11 @@ from ParserLibs.[grammarName]Parser import [grammarName]Parser
 import graphviz
 from antlr4.tree.Tree import *
 from antlr4.Utils import escapeWhitespace
+from antlr4.tree.Trees import *
 
 def traverse(tree, parser, g, pid):
-    print("traverse called")
-    
-    txt = escapeWhitespace(tree.getNodeText(t, parser), False) # this doesn't work but needs to
-    print(txt)
+    # from antlr4/antlr/tree/Trees.py
+    txt = escapeWhitespace(Trees.getNodeText(t=tree, recog=parser), False)
 
     tid = str(id(tree))
     g.node(tid, txt)
@@ -29,9 +28,10 @@ def traverse(tree, parser, g, pid):
         traverse(c, parser, g, tid)
     
 def createGraph(tree, parser):
+    # following graphviz python docs tutorial
     g = graphviz.Graph('parse tree')
     traverse(tree, parser, g, None)
-    g.render(directory='doctest-output').replace('\\', '/')
+    g.render(directory='doctest-output').replace('\\', '/') # change this to png
 
 def main(argv):
     gui = False
