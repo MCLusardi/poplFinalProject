@@ -31,7 +31,7 @@ def createGraph(tree, parser):
     # following graphviz python docs tutorial
     g = graphviz.Graph('parse tree')
     traverse(tree, parser, g, None)
-    g.render(directory='doctest-output').replace('\\', '/') # change this to png
+    g.render(format='png', directory='doctest-output').replace('\\', '/')
 
 def main(argv):
     gui = False
