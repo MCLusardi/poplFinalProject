@@ -1,15 +1,40 @@
 grammar popl;
 
 // Source: https://tomassetti.me/antlr-mega-tutorial/
+// Indentation using this plugin: https://github.com/yshavit/antlr-denter
+
+tokens { INDENT, DEDENT }
+
+@lexer::header {
+from antlr_denter.DenterHelper import DenterHelper
+from ParserLibs.poplParser import poplParser
+}
+
+@lexer::members {
+class poplDenter(DenterHelper):
+    def __init__(self, lexer, nl_token, indent_token, dedent_token, ignore_eof):
+        super().__init__(nl_token, indent_token, dedent_token, ignore_eof)
+        self.lexer: poplLexer = lexer
+
+    def pull_token(self):
+        return super(poplLexer, self.lexer).nextToken()
+
+denter = None
+
+def nextToken(self):
+    if not self.denter:
+        self.denter = self.poplDenter(self, self.NL, poplParser.INDENT, poplParser.DEDENT, False)
+    return self.denter.next_token()
+}
 
 /*
  *  Parser rules
  */
 
 // program entry point
-prog : (NEWLINE* codeLine WHITESPACE* (NEWLINE+ | NEWLINE* EOF))+ ;
 
-codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | forLoop | whileLoop | PASS | commentline) ;
+prog : (codeLine)+ ;
+codeLine : (ifStatement | expression | assignment | standaloneNUM | STRING | conditional | forLoop | whileLoop | PASS | commentline | function) WHITESPACE* NL*;
 
 // Requirements for variable names
 variable : VARNAME ;
@@ -32,9 +57,12 @@ assignmentOp : ('=' | '+=' | '-=' | '*=' | '/=') ;
 conditional : (NOT WHITESPACE)? (standaloneNUM | variable | STRING | expression) ((WHITESPACE* CONDITION (WHITESPACE NOT)? WHITESPACE*) (standaloneNUM | variable | STRING | expression))* ;
 
 ifStatement : IF ifBody ;
-elseIfStatement : NEWLINE ELSEIF ifBody ;
-ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (elseIfStatement | elseStatement)? ;
-elseStatement : NEWLINE ELSE WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ ;
+elseIfStatement : ELSEIF ifBody ;
+ifBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* block (elseIfStatement | elseStatement)? ;
+elseStatement : ELSE WHITESPACE* COLON WHITESPACE* block ;
+
+block : INDENT codeLine+ DEDENT ;
+funcblock : INDENT (returncall | (codeLine+ returncall?)+ | PASS) DEDENT ;
 
 //Comment
 commentline : COMMENT | BLOCKCOMMENT ;
@@ -46,9 +74,22 @@ nonemptyList      : '[' (WHITESPACE* ((standaloneNUM | unaryMinus) | (STRING)) W
 
 // Loops
 forLoop : FOR WHITESPACE variable WHITESPACE IN WHITESPACE variable WHITESPACE* COLON WHITESPACE* forBody (elseStatement)?;
-forBody : (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? ;
+forBody : block (NL WHITESPACE* (BREAK | CONTINUE))? ;
 whileLoop : WHILE whileBody ;
-whileBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* (NEWLINE WHITESPACE codeLine)+ (NEWLINE WHITESPACE (BREAK | CONTINUE))? (elseStatement)? ;
+whileBody : WHITESPACE conditional+ WHITESPACE* COLON WHITESPACE* block (NL WHITESPACE (BREAK | CONTINUE))? (elseStatement)? ;
+
+// ifStatementLOOP : IF ifBodyLOOP ;
+// ifBodyLOOP  : ifBody (BREAK | CONTINUE)? ;
+
+//functions
+function : functiondef | functioncall ;
+functiondef : 'def' WHITESPACE funchead WHITESPACE* COLON WHITESPACE* (funcblock | codeLine | returncall) ;
+funchead : VARNAME WHITESPACE* '(' argument? ')' ;
+argument : VARNAME (',' VARNAME)* ;
+//funcbody : codeLine | (NL WHITESPACE codeLine)* ((NL WHITESPACE)* returncall)? |PASS;
+functioncall : (VARNAME WHITESPACE* '=' WHITESPACE*)? funchead ;
+returncall : 'return' WHITESPACE (standaloneNUM | expression | STRING | funchead) NL* ;
+
 
 /*
  *  Lexer rules
@@ -89,7 +130,8 @@ CONTINUE        : 'continue' ;
 VARNAME         : LETTER (LETTER | DIGIT)* ;
 LETTER          : (LOWER | UPPER | '_') ;
 
-NEWLINE         : [\r\n]+ ;
+NL              : ('\r'? '\n' ' '*) | ('\r'? '\n' '\t'*) ;
+// NEWLINE         : [\r\n]+ ;
 WHITESPACE      : (SPACE | TAB)+ ;
 SPACE           : [ ] ;
 TAB             : [\t] ;
