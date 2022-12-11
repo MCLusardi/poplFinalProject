@@ -6,11 +6,18 @@ University of Missouri, Section 01, Fall Semester 2022. Instructor: Dr. Ekincan 
 GitHub Repo Link: [https://github.com/MCLusardi/poplFinalProject](https://github.com/MCLusardi/poplFinalProject)
 
 ## Description
-This tool and grammer can parse many basic elements of python syntax and generate a parse tree of them. The elements it parses include:
-- Basic arithmetic
+This tool and grammar can parse many basic elements of Python syntax and generate a parse tree of them. The elements it parses include:
+- Arithmetic operations
+- Assignment operations
+- Variables
+- Comments
 - for and while loops
 - if statements
 - Function definitions and calls
+
+This tool also provides the option to visualize the parse tree output in a GUI format.
+
+This parser was implemented using the ANTLR framework and the Python language. The lexer and parser rules were written using Context-Free Grammars.
 
 ## Suggested Usage
 1. Run `chmod +x *.sh` in order to make the bash scripts executable
