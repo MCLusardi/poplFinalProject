@@ -7,10 +7,10 @@ GitHub Repo Link: [https://github.com/MCLusardi/poplFinalProject](https://github
 
 ## Description
 This tool and grammer can parse many basic elements of python syntax and generate a parse tree of them. The elements it parses include:
-/Basic arithmetic
-/for and while loops
-/if statements
-/Function definitions and calls
+- Basic arithmetic
+- for and while loops
+- if statements
+- Function definitions and calls
 
 ## Suggested Usage
 1. Run `chmod +x *.sh` in order to make the bash scripts executable
@@ -29,3 +29,4 @@ This tool and grammer can parse many basic elements of python syntax and generat
 - Mason Fleck
 - Tim Glavan
 - Maria Lusardi
+- Erika Zhou
