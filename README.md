@@ -19,6 +19,8 @@ This tool also provides the option to visualize the parse tree output in a GUI f
 
 This parser was implemented using the ANTLR framework and the Python language. The lexer and parser rules were written using Context-Free Grammars.
 
+Using the `-gui` option when generating a parse tree will output a graphical representation of the parse tree as a png in the `doctest-output` directory.
+
 ## Suggested Usage
 1. Run `chmod +x *.sh` in order to make the bash scripts executable
 2. Run `./setup.sh` to make sure the necessary dependencies are installed
