@@ -16,3 +16,10 @@ GitHub Repo Link: [https://github.com/MCLusardi/poplFinalProject](https://github
 2. Run `./setup.sh` to make sure the necessary dependencies are installed
 3. Run `./gen.sh [grammar name].g4` to generate the lexer and parser code from ANTLR
 4. Run `python3 parser[grammar name].py [-gui] [language file name]` to parse the given input file. Alternatively, do not specify an input file and input the code for the language generated from the grammar into the terminal directly
+
+## Team Members
+Stuart Aldrich
+Mason Fleck
+Erika Zhou
+Tim Glavan
+Maria Lusardi
